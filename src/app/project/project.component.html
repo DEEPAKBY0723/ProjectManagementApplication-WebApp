@@ -1,0 +1,67 @@
+
+<div class="container">
+            <div class="form-group col-sm-6" [ngClass]="{'has-error': highlightProject }">
+                    <label style= "font-weight: bold" for="project">Project:</label>
+                  <input type="text" maxlength="25" class="form-control"  (keyup.enter)="myClickFunction($event)"  id="project" [(ngModel)]="projectName" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' >
+                  <div style="min-height: 10px">
+                        <label class="error" *ngIf="highlightProject==true">Project name is required.</label>
+                  </div>  
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;<input style= "font-weight: bold" type="checkbox" (click)="IsCheckBoxChecked()" id="dateCheckBox" /><label style= "font-weight: bold">Set start and End Date</label>
+            &nbsp;&nbsp;<mat-form-field *ngIf="isChecked">
+                <input (ngModelChange)="functionName()" placeholder="Start Date" matInput [matDatepicker]="picker" placeholder="Start date" [(ngModel)]="startDate" (keyup.enter)="myClickFunction($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              &nbsp;&nbsp;<mat-form-field *ngIf="isChecked">
+                <input matInput [matDatepicker]="picker2" placeholder="End Date" [(ngModel)]="endDate" (keyup.enter)="myClickFunction($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+              <div style="min-height: 10px">
+                    <label class="error" *ngIf="highlightDates==true">End date should be greater than start date</label>
+                    <label class="error" *ngIf="highlightNoDatesError==true">Please select start date and end date</label>
+              </div> 
+              &nbsp;&nbsp;&nbsp;<label  style= "font-weight: bold">Priority:</label>
+              &nbsp;&nbsp;&nbsp;&nbsp;<mat-slider thumbLabel [displayWith]="formatLabel" thum tickInterval="1000"
+              min="0"
+              max="30" step="1" value="0" [(ngModel)]="priorityValue" ></mat-slider>
+              <br/>
+              &nbsp;&nbsp;&nbsp;<label style= "font-weight: bold">Manager:</label>
+              &nbsp;&nbsp;&nbsp;&nbsp;<ss-multiselect-dropdown [options]="myOptions" [texts]="myTexts" [settings]="mySettings" [(ngModel)]="optionsModel">
+
+              </ss-multiselect-dropdown>
+              <div style="min-height: 10px">
+                    <label class="error" *ngIf="highlightManager==true">Please assign one manager</label>
+              </div> 
+              &nbsp;&nbsp;&nbsp;&nbsp;<button type="submit"
+           class="btn btn-success" (click)="myClickFunction($event)">
+              Add
+          </button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="reset"
+           class="btn btn-success"  (click)="ResetData()" >
+          Reset
+      </button>
+<br/>
+<br/>
+<div >
+    <label style= "font-weight: bold" >Project Results:</label>
+    &nbsp;&nbsp;<button type="submit"
+    class="btn btn-success" (click)="getProjectDetails()">
+       Refresh Results
+   </button>
+    <ag-grid-angular
+    style="width: 1000px; height: 500px;"
+    class="ag-theme-balham"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    >
+</ag-grid-angular>
+  </div>
+    
+
+</div>
+    
+
+
+

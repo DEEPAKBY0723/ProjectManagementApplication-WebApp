@@ -1,0 +1,66 @@
+<div class="container">
+   
+        <div class="form-group col-sm-9">
+            
+            <label style= "font-weight: bold">Project:</label>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<ss-multiselect-dropdown [options]="myOptions" [texts]="myTexts" [settings]="mySettings" [(ngModel)]="optionsModel">
+</ss-multiselect-dropdown>
+<div style="min-height: 10px">
+    <label class="error" *ngIf="highlightProjectSError==true">Please select one Project Name.</label>
+</div> 
+<br/>
+
+    <label  style= "font-weight: bold" for="project">Task:</label>
+    <input type="text" maxlength="50" class="form-control" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))'   id="project" [(ngModel)]="taskName" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' >
+    <div style="min-height: 10px">
+        <label class="error" *ngIf="highlightTaskError==true">Task name is required.</label>
+  </div>  
+
+<br/>
+&nbsp;<input type="checkbox" (click)="IsCheckBoxChecked()" id="dateCheckBox" /><label style= "font-weight: bold">Parpent Task</label>
+<br/>
+<div>
+&nbsp;<label style= "font-weight: bold">Priority</label>
+&nbsp;&nbsp;&nbsp;&nbsp;<mat-slider thumbLabel [disabled]="isDisabled"  [(ngModel)]="priorityValue" thum tickInterval="1000"
+min="0"
+max="30" step="1" value="0"></mat-slider>
+<br/>
+
+<label style= "font-weight: bold">Parent Task:</label>
+&nbsp;&nbsp;&nbsp;&nbsp;<ss-multiselect-dropdown [options]="taskOptions" [texts]="myTexts" [disabled]="isDisabled"  [settings]="mySettings" [(ngModel)]="optionsModel2">
+</ss-multiselect-dropdown>
+<div style="min-height: 10px">
+    <label class="error" *ngIf="highlightParentTaskError==true">Please select one Parent Task.</label>
+</div> 
+<br/>
+<label style= "font-weight: bold">Start Date:</label><mat-form-field>
+        <input matInput [matDatepicker]="picker" [disabled]="isDisabled" placeholder="Start date" [(ngModel)]="startDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      &nbsp;&nbsp;<label style= "font-weight: bold">End Date:</label><mat-form-field>
+        <input matInput [matDatepicker]="picker2" [disabled]="isDisabled"  placeholder="End date" [(ngModel)]="endDate">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+      <div style="min-height: 10px">
+        <label class="error" *ngIf="highlightDateError==true">Start Date cannot be less than end date</label>
+    </div> 
+      <label style= "font-weight: bold">User</label>
+&nbsp;&nbsp;&nbsp;&nbsp;<ss-multiselect-dropdown [disabled]="isDisabled"  [options]="userOptions" [texts]="myTexts" [settings]="mySettings" [(ngModel)]="optionsModel1">
+</ss-multiselect-dropdown>
+<div style="min-height: 10px">
+    <label class="error" *ngIf="highlightUserError==true">Please select one User.</label>
+</div> 
+<br/>
+</div>
+<button type="submit"
+           class="btn btn-success" (click)="AddtaskDetails()">
+              Add Task
+          </button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="reset"
+          class="btn btn-success" (click)="ResetData()">
+          Reset
+      </button>
+</div>
